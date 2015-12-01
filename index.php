@@ -9,62 +9,14 @@
 </head>
 <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
+<link rel="stylesheet" type="text/css" href="css/style.css">
+
 <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
 <script type="text/javascript">
-  var map, infoWindow, marker;
-
-  function initMap() {
-    map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 12
-    });
-
-    // center the in the visitor city
-    var geocoder = new google.maps.Geocoder();
-    var location = "<?php echo getVisitorCity();?>";
-    geocoder.geocode( { 'address': location }, function(results, status) {
-      if (status == google.maps.GeocoderStatus.OK) {
-          map.setCenter(results[0].geometry.location);
-      } else {
-          alert("Could not find location: " + location);
-      }
-    });
-  }
-
-  function findMe() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function(position) {
-        var pos = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        };
-
-        map.setZoom(17);
-        map.setCenter(pos);
-
-        var marker = new google.maps.Marker({
-          position: pos,
-          title: "You are here!"
-        });
-
-        // To add the marker to the map, call setMap();
-        marker.setMap(map);
-
-      }, function() {
-        handleLocationError(true, infoWindow, map.getCenter());
-      });
-    } else {
-      // Browser doesn't support Geolocation
-      handleLocationError(false, infoWindow, map.getCenter());
-    }
-  }
-
-  function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-    infoWindow.setPosition(pos);
-    infoWindow.setContent(browserHasGeolocation ?
-                        'Error: The Geolocation service failed.' :
-                        'Error: Your browser doesn\'t support geolocation.');
-  }
+  var city = "<?php echo getVisitorCity();?>";
 </script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjmFFqfjOW7BIBC0ltJd_ql5qITzSjX84&callback=initMap"></script>
+<script type="text/javascript" src="js/map-functions.js"></script>
 <body>
   <div class="container">
     <div class="header clearfix">
@@ -84,9 +36,24 @@
           <button onclick="findMe()"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>Find Me</button>
           or click on the map to find your position.
         </p>
-        <fieldset>
+        <form>
+          <div class="col-md-6">
+            <input class="form-control" type="text" name="address_line_1" id="address_line_1" placeholder="Address line 1:" required>
+            <span class="help">Street address, P.O. box, company name, c/o</span>
+            <input class="form-control" type="text" name="city" id="city" placeholder="City:" required>
+            <input class="form-control" type="text" name="state_or_region" id="state_or_region" placeholder="State/Province/Region:" required>
+            <input class="form-control" type="text" name="zip" id="zip" placeholder="Postal code:" required>
+            <input class="form-control" type="text" name="country" id="country" placeholder="Country:" required>
+          </div>
 
-        </fieldset>
+          <div class="col-md-6">
+            <input class="form-control" type="text" name="full_name" id="full_name" placeholder="Full name:" required>
+            <input class="form-control" type="email" name="email" id="email" placeholder="Email:" required>
+            <input class="form-control" type="text" name="phone" id="phone" placeholder="Phone number:">
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+          </div>
+
+        </form>
       </div>
       <div class="col-md-6" id="map" style="height:450px;">
     </div>
@@ -94,6 +61,6 @@
     </div>
 
   </div>
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjmFFqfjOW7BIBC0ltJd_ql5qITzSjX84&callback=initMap"></script>
+
 </body>
 </html>
