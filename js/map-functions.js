@@ -48,7 +48,7 @@ function updateMarker(pos) {
     if (status === google.maps.GeocoderStatus.OK) {
       if (results[0]) {
         var add_c = results[0].address_components;
-        fillAddress(add_c);
+        fillAddress(add_c, pos);
       } else {
         alert('No address found, try another place');
       }
@@ -85,12 +85,14 @@ function findMe() {
  * @param  {array} address_components map with the address componets
  * @return {null}
  */
-function fillAddress(address_components) {
+function fillAddress(address_components, post) {
   document.getElementById('address_line_1').value = address_components[1].long_name + ' ' + address_components[0].long_name;
   document.getElementById('city').value = address_components[2].long_name + ', ' + address_components[4].long_name;
   document.getElementById('zip').value = address_components[7].long_name;
-  document.getElementById('state_or_region').value = address_components[5].short_name;
+  document.getElementById('state_or_region').value = address_components[5].long_name;
   document.getElementById('country').value = address_components[6].long_name;
+  document.getElementById('lat').value = pos.lat;
+  document.getElementById('lng').value = pos.lng;
 }
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
