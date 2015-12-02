@@ -34,12 +34,12 @@ function initMap() {
   }
 }
 
-function setMarker(pos) {
-  marker.setPosition(pos);
+function setMarker(_pos) {
+  marker.setPosition(_pos);
   infowindow.setContent("You are here!");
   infowindow.open(map, marker);
   map.setZoom(17);
-  map.panTo(pos);
+  map.panTo(_pos);
 }
 
 /**
@@ -47,15 +47,15 @@ function setMarker(pos) {
  * @param  {object} pos {lat,lng} object
  * @return {null}
  */
-function updateMarkerAndForm(pos) {
-  setMarker(pos);
+function updateMarkerAndForm(_pos) {
+  setMarker(_pos);
 
   // get the readable address of a given position
-  geocoder.geocode({'location': pos}, function(results, status) {
+  geocoder.geocode({'location': _pos}, function(results, status) {
     if (status === google.maps.GeocoderStatus.OK) {
       if (results[0]) {
         var add_c = results[0].address_components;
-        fillAddress(add_c, pos);
+        fillAddress(add_c, _pos);
       } else {
         alert('No address found, try another place');
       }
@@ -92,18 +92,18 @@ function findMe() {
  * @param  {array} address_components map with the address componets
  * @return {null}
  */
-function fillAddress(address_components, post) {
+function fillAddress(address_components, _pos) {
   document.getElementById('address_line_1').value = address_components[1].long_name + ' ' + address_components[0].long_name;
   document.getElementById('city').value = address_components[2].long_name + ', ' + address_components[4].long_name;
   document.getElementById('zip').value = address_components[7].long_name;
   document.getElementById('state_or_region').value = address_components[5].long_name;
   document.getElementById('country').value = address_components[6].long_name;
-  document.getElementById('lat').value = pos.lat;
-  document.getElementById('lng').value = pos.lng;
+  document.getElementById('lat').value = _pos.lat();
+  document.getElementById('lng').value = _pos.lng();
 }
 
-function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-  infoWindow.setPosition(pos);
+function handleLocationError(browserHasGeolocation, infoWindow, _pos) {
+  infoWindow.setPosition(_pos);
   infoWindow.setContent(browserHasGeolocation ?
                       'Error: The Geolocation service failed.' :
                       'Error: Your browser doesn\'t support geolocation.');
