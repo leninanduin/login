@@ -10,4 +10,12 @@
     return $details->city;
   }
 
+  class Result {
+    public $msg;
+    public $status;
+
+    public function render() {
+      return json_encode($this);
+    }
+  }
 ?>

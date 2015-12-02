@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
   <title></title>
 </head>
 <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
@@ -36,7 +36,7 @@
           <button onclick="findMe()"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>Find Me</button>
           or click on the map to find your position.
         </p>
-        <form action="server/register.php" method="post">
+        <form action="server/new_user.php" method="post">
           <div class="col-md-6">
             <input class="form-control" type="text" name="address_line_1" id="address_line_1" placeholder="Address line 1:" required>
             <span class="help">Street address, P.O. box, company name, c/o</span>
@@ -51,7 +51,7 @@
           <div class="col-md-6">
             <input class="form-control" type="text" name="full_name" id="full_name" placeholder="Full name:" required>
             <input class="form-control" type="email" name="email" id="email" placeholder="Email:" required>
-            <input class="form-control" type="password" name="password" placeholder="Password:">
+            <input class="form-control" type="password" name="password" placeholder="Password:" required>
             <input class="form-control" type="text" name="phone" id="phone" placeholder="Phone number:">
             <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
           </div>
