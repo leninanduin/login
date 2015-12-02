@@ -1,5 +1,6 @@
 <?php
-  include 'lib/misc.php';
+  include 'misc.php';
+  checkPresentAuthToken();
 ?>
 <!DOCTYPE html>
 <html>
@@ -17,6 +18,7 @@
 </script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjmFFqfjOW7BIBC0ltJd_ql5qITzSjX84&callback=initMap"></script>
 <script type="text/javascript" src="js/map-functions.js"></script>
+<script type="text/javascript" src="js/register.js"></script>
 <body>
   <div class="container">
     <div class="header clearfix">
@@ -36,7 +38,7 @@
           <button onclick="findMe()"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>Find Me</button>
           or click on the map to find your position.
         </p>
-        <form action="server/new_user.php" method="post">
+        <form id="newUser" method="post">
           <div class="col-md-6">
             <input class="form-control" type="text" name="address_line_1" id="address_line_1" placeholder="Address line 1:" required>
             <span class="help">Street address, P.O. box, company name, c/o</span>

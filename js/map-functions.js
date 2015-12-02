@@ -15,20 +15,31 @@ function initMap() {
     map: map,
     draggable:true
   });
-
-  map.addListener('click', function(e) {
-    updateMarker(e.latLng);
-  });
-
-  // center the in the visitor city
   geocoder = new google.maps.Geocoder();
-  geocoder.geocode( { 'address': city }, function(results, status) {
-    if (status == google.maps.GeocoderStatus.OK) {
-        map.setCenter(results[0].geometry.location);
-    } else {
-        alert("Could not find location: " + city);
-    }
-  });
+  // center the in the visitor city
+  if (typeof city !== 'undefined') {
+    map.addListener('click', function(e) {
+      updateMarkerAndForm(e.latLng);
+    });
+
+    geocoder.geocode( { 'address': city }, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+          map.setCenter(results[0].geometry.location);
+      } else {
+          alert("Could not find location: " + city);
+      }
+    });
+  } else if( pos.lat && pos.lng ) {
+    setMarker(pos);
+  }
+}
+
+function setMarker(pos) {
+  marker.setPosition(pos);
+  infowindow.setContent("You are here!");
+  infowindow.open(map, marker);
+  map.setZoom(17);
+  map.panTo(pos);
 }
 
 /**
@@ -36,12 +47,8 @@ function initMap() {
  * @param  {object} pos {lat,lng} object
  * @return {null}
  */
-function updateMarker(pos) {
-  marker.setPosition(pos);
-  infowindow.setContent("You are here!");
-  infowindow.open(map, marker);
-  map.setZoom(17);
-  map.panTo(pos);
+function updateMarkerAndForm(pos) {
+  setMarker(pos);
 
   // get the readable address of a given position
   geocoder.geocode({'location': pos}, function(results, status) {
@@ -69,7 +76,7 @@ function findMe() {
       pos.lat = position.coords.latitude;
       pos.lng = position.coords.longitude;
 
-      updateMarker(pos);
+      updateMarkerAndForm(pos);
 
     }, function() {
       handleLocationError(true, infoWindow, map.getCenter());
