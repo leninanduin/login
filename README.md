@@ -5,6 +5,7 @@
   - mysql
   - apache
   - phpunit
+  - php mcrypt: sudo apt-get install php5-mcrypt && sudo php5enmod mcrypt
 
 ### How to install
 
