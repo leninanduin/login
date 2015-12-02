@@ -1,6 +1,6 @@
 ## Geo localized register form
 
-###Instalation
+### Instalation
 
   - **Setup data base:**
 
@@ -12,3 +12,9 @@
 
   - **Clone the repo repo**
   - **Get fun!**
+
+## Functionality
+
+  - **/index.php**: register a user
+  - **/login.php**: login with user password
+  - **/user.php**: see user location

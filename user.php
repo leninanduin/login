@@ -3,8 +3,13 @@
   ini_set('display_errors', 'on');
   include 'misc.php';
   $token = getToken();
-  $user = getUser($token->user_id);
 
+  if (!$token->isValid()) {
+    header('Location: login.php');
+    die;
+  }
+
+  $user = getUser($token->user_id);
 
 ?>
 <!DOCTYPE html>
