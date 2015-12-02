@@ -22,7 +22,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `tokens`;
 CREATE TABLE `tokens` (
-  `token` varchar(100) NOT NULL,
+  `token` varchar(255) NOT NULL,
   `valid_until` timestamp NULL DEFAULT NULL,
   `always_valid` tinyint(1) DEFAULT '0',
   `user_id` int(11) NOT NULL

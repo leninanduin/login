@@ -4,7 +4,7 @@
   header('Content-Type: application/json; charset=utf-8');
 
   include '../misc.php';
-  include_once 'models/user.php';
+  include_once 'src/user.php';
 
   $result = new Result();
 

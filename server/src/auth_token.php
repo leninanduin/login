@@ -9,12 +9,15 @@ class AuthToken
   public $always_valid;
   public $user_id;
 
-  public function __construct($uid = 0) {
+  public function __construct($uid = 0, $useDb = 1) {
     $this->user_id = $uid;
 
-    //init DB
-    $this->db = new PDO("mysql:host=localhost;dbname=login;charset=utf8", 'dbuser', 'notasecurepassword');
-    $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    if ($useDb) {
+      //init DB
+      $this->db = new PDO("mysql:host=localhost;dbname=login;charset=utf8", 'dbuser', 'notasecurepassword');
+      $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    }
+
   }
 
   public function save($always_valid) {

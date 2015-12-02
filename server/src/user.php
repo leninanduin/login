@@ -25,7 +25,7 @@ class User
     public $lng;
     public $registered_date;
 
-    public function __construct($parameters = array()) {
+    public function __construct($parameters = array(), $useDB = 1) {
 
         if (count($parameters) == 0) {
             throw new Exception("User information is required.");
@@ -48,12 +48,14 @@ class User
             throw new Exception("User information is required.");
         }
 
-        //init DB
-        $this->db = new PDO("mysql:host=localhost;dbname=login;charset=utf8", 'dbuser', 'notasecurepassword');
-        $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        if($useDB) {
+            //init DB
+            $this->db = new PDO("mysql:host=localhost;dbname=login;charset=utf8", 'dbuser', 'notasecurepassword');
+            $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        }
     }
 
-    private function passwordHashing() {
+    public function passwordHashing() {
         $options = [
             'cost' => 11,
             'salt' => mcrypt_create_iv(22, MCRYPT_DEV_URANDOM),

@@ -1,8 +1,8 @@
 <?php
   error_reporting(E_ALL);
   ini_set('display_errors', 'on');
-  include_once 'server/models/auth_token.php';
-  include_once 'server/models/user.php';
+  include_once 'server/src/auth_token.php';
+  include_once 'server/src/user.php';
 
   function pr($a) {
     echo '<pre>';
